@@ -1,0 +1,29 @@
+{
+  "name": "API-project",
+  "version": "1.0.0",
+  "main": "./lib/index.js",
+  "repository": "https://github.com/dionenak/api-project.git",
+  "author": "dionenak <dionenak@outlook.com>",
+  "license": "MIT",
+  "scripts": {
+    "build":"tsc",
+    "dev": "tsc -w"
+  },
+  "devDependencies": {
+    "@types/lodash": "^4.14.195",
+    "@typescript-eslint/eslint-plugin": "^5.54.0",
+    "@typescript-eslint/parser": "^5.59.6",
+    "eslint": "^8.35.0",
+    "eslint-config-standard-with-typescript": "^34.0.0",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-n": "^15.6.1",
+    "eslint-plugin-promise": "^6.1.1",
+    "prettier": "^2.6.2",
+    "typescript": "^5.1.6",
+    "vue-eslint-parser": "^8.0.0"
+  },
+  "dependencies": {
+    "@types/express": "^4.17.17",
+    "express": "^4.18.2"
+  }
+}
