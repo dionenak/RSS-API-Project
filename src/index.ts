@@ -1,18 +1,16 @@
 import express, { Request, Response } from "express";
-import * as fs from 'fs'
-
+import router from './router/api';
+import * as bodyParser from "body-parser"
+import * as bodyparser from 'body-parser';
 // set up our express app
 const app = express();
 // set the port
 const port=8080
-// how to handle get
-app.get('/api', (req, res) =>{
-    const file=fs.readFileSync('data/feed.xml', 'utf8')
-    // we want to return rss xml
-    res.type('.rss')
-    // If we want to send the file, we could use : res.download('data/feed.xml')
-    res.send(file)
-    });
+
+app.use(express.json())
+app.use(bodyParser.urlencoded({ extended: true }))
+
+app.use('/', router);
 
 // listen for requests
 app.listen(port, function(){
