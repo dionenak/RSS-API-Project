@@ -1,7 +1,6 @@
 import express, { Request, Response } from "express";
 import router from './router/api';
 import * as bodyParser from "body-parser"
-import * as bodyparser from 'body-parser';
 // set up our express app
 const app = express();
 // set the port
