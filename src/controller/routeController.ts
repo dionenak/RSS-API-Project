@@ -4,6 +4,9 @@ import * as fs from "fs";
 
 export type UserInput = { title: string; link: string };
 function createRSS(items: Array<UserInput>): string {
+	/**
+	 * Info we want from config for our XML.
+	 */
 	const projectInfo: {
 		title: string;
 		link: string;
@@ -11,6 +14,9 @@ function createRSS(items: Array<UserInput>): string {
 		lang: "string";
 	} = config.get("project");
 
+	/**
+	 * Constructing the XML object.
+	 */
 	const xmlObject = {
 		rss: [
 			{

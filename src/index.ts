@@ -7,7 +7,6 @@ const port = config.get("port");
 
 // set up our express app
 const app = express();
-
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
