@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0">
+  <channel>
+    <title>API-PROJECT</title>
+    <link>a link</link>
+    <description>a description</description>
+    <language>en-us</language>
+    <item>
+      <title>one item</title>
+      <link>one url</link>
+    </item>
+    <item>
+      <title>two item</title>
+      <link>two url</link>
+    </item>
+  </channel>
+</rss>
