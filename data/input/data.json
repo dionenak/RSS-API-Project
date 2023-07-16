@@ -1,11 +1,11 @@
 { "items":[
     {
         "title":"one item",
-        "url":"one url"
+        "link":"one url"
     },
     {
         "title":"two item",
-        "url":"two url"
+        "link":"two url"
     }
 ]
 }

@@ -12,5 +12,9 @@
       <title>two item</title>
       <link>two url</link>
     </item>
+    <item>
+      <title>third item</title>
+      <link>http:/jsjsjs</link>
+    </item>
   </channel>
 </rss>

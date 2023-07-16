@@ -1,23 +1,21 @@
 import express from "express";
 import * as fs from "fs";
 import * as data from "../../data/input/data.json";
-import { createRSS } from "../controller/routeController";
+import { UserInput, updateItems } from "../controller/routeController";
 
 const router = express.Router();
 
 router.get("/api", (req, res) => {
-	const file = fs.readFileSync("data/feed.xml", "utf8");
-	res.type(".rss").send(file);
+	const RSS = fs.readFileSync("data/output/feed.xml", "utf8");
+	res.type(".rss").send(RSS);
 });
 
 router.post("/api", (req, res) => {
-	// We need some error handling.
-	const url = req.body.url;
-	const title = req.body.title;
-	const RSS = createRSS(data.items);
-	fs.writeFileSync("data/output/feed.xml", RSS);
-
-	res.send(`Got ${title},${url},${RSS}`);
+	const userInput: UserInput = { title: req.body.title, link: req.body.link };
+	if (!userInput.link || !userInput.title)
+		throw new Error("Please provide a valid title and link.");
+	const RSS = updateItems(userInput, data.items);
+	res.type(".rss").send(RSS);
 });
 
 export default router;
