@@ -49,10 +49,10 @@ function createRSS(items: Array<UserInput>): string {
 
 export function updateItems(userInput: UserInput, RSSinput: Array<UserInput>) {
 	let found = false;
+	// 3. mallon urls den exoume dipla. ama iparxei to kanei skip.
 	for (const item of RSSinput) {
 		if (item.title === userInput.title) {
 			userInput.link = userInput.link;
-			// What do we do when we have more than once the same title?
 			found = true;
 		}
 	}
