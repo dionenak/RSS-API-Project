@@ -5,16 +5,8 @@
     <description>a description</description>
     <language>en-us</language>
     <item>
-      <title>one item</title>
-      <link>one url</link>
-    </item>
-    <item>
-      <title>two item</title>
-      <link>two url</link>
-    </item>
-    <item>
-      <title>third item</title>
-      <link>http:/jsjsjs</link>
+      <title>my_mail</title>
+      <link>my_password</link>
     </item>
   </channel>
 </rss>

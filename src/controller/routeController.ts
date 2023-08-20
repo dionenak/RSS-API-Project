@@ -3,6 +3,11 @@ import xml from "xml";
 import * as fs from "fs";
 
 export type UserInput = { title: string; link: string };
+type dataType = { ["items"]: Array<UserInput> };
+const data: dataType = {
+	items: [],
+};
+
 function createRSS(items: Array<UserInput>): string {
 	/**
 	 * Info we want from config for our XML.
@@ -48,16 +53,29 @@ function createRSS(items: Array<UserInput>): string {
 }
 
 export function updateItems(userInput: UserInput, RSSinput: Array<UserInput>) {
-	let found = false;
-	// 3. mallon urls den exoume dipla. ama iparxei to kanei skip.
+	let foundItem = false;
+	let foundLink = false;
+
 	for (const item of RSSinput) {
 		if (item.title === userInput.title) {
-			userInput.link = userInput.link;
-			found = true;
+			item.link = userInput.link;
+			foundItem = true;
+			break;
+		}
+		// 3. mallon urls den exoume dipla. ama iparxei to kanei skip.
+		if (item.link === userInput.link) {
+			foundLink = true;
+			break;
 		}
 	}
-	if (!found) RSSinput.push({ title: userInput.title, link: userInput.link });
+	// Isws edw na girna to RSS?
+	if (!foundLink) return;
+	if (!foundItem) {
+		RSSinput.push({ title: userInput.title, link: userInput.link });
+	}
 	const RSS = createRSS(RSSinput);
 	fs.writeFileSync("data/output/feed.xml", RSS);
 	return RSS;
 }
+
+export default data;
