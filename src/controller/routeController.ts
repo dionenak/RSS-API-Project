@@ -21,11 +21,25 @@ function instantiateRSS() {
 	/**
 	 * Constructing the XML object.
 	 */
-	const initialXmlObject = {
+
+	//TODO finish the type
+	// interface xmlObjectType {
+	// 	rss: [
+	// 		{ _attr: { version: number } },
+	// 		channel: {
+	// 			title: string;
+	// 			link: string;
+	// 			description: string;
+	// 			language: string;
+	// 		}
+	// 	];
+	// }
+
+	const initialXmlObject: any = {
 		rss: [
 			{
 				_attr: {
-					version: config.get("rss.version"),
+					version: config.get<number>("rss.version"),
 				},
 			},
 			{
@@ -44,13 +58,12 @@ function instantiateRSS() {
 
 function createRSS(items: Array<UserInput>): string {
 	let xmlObject = instantiateRSS();
-	const objectToAdd = data.items.map((item) => {
-		return {
+
+	data.items.forEach((item) => {
+		xmlObject.rss[1].channel!.push({
 			item: [{ title: item.title }, { link: item.link }],
-		};
+		});
 	});
-	console.log(objectToAdd);
-	// xmlObject.rss[1].channel![0];
 
 	const xmlString =
 		'<?xml version="1.0" encoding="UTF-8"?>' + xml(xmlObject, { indent: "  " });
