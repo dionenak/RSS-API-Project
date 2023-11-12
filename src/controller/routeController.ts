@@ -4,10 +4,33 @@ import * as fs from "fs";
 
 export type UserInput = { title: string; link: string };
 type dataType = { ["items"]: Array<UserInput> };
+type Flatten<T> = T extends any[] ? T[number] : {};
+type FeedType = Array<{
+	item: [{ title: string }, { link: string }];
+}>;
+
+type XmlObjectType = {
+	rss: [
+		{ _attr: { version: number } },
+		{
+			channel: [
+				{ title: string },
+				{ link: string },
+				{ description: string },
+				{ language: string },
+				Flatten<FeedType>?
+			];
+		}
+	];
+};
+
 const data: dataType = {
 	items: [],
 };
 
+/**
+ * Constructing the XML object.
+ */
 function instantiateRSS() {
 	/**
 	 * Info we want from config for our XML.
@@ -18,24 +41,8 @@ function instantiateRSS() {
 		description: string;
 		lang: "string";
 	} = config.get("project");
-	/**
-	 * Constructing the XML object.
-	 */
 
-	//TODO finish the type
-	// interface xmlObjectType {
-	// 	rss: [
-	// 		{ _attr: { version: number } },
-	// 		channel: {
-	// 			title: string;
-	// 			link: string;
-	// 			description: string;
-	// 			language: string;
-	// 		}
-	// 	];
-	// }
-
-	const initialXmlObject: any = {
+	const initialXmlObject: XmlObjectType = {
 		rss: [
 			{
 				_attr: {
@@ -59,8 +66,8 @@ function instantiateRSS() {
 function createRSS(items: Array<UserInput>): string {
 	let xmlObject = instantiateRSS();
 
-	data.items.forEach((item) => {
-		xmlObject.rss[1].channel!.push({
+	data.items.forEach((item: UserInput) => {
+		xmlObject.rss[1].channel.push({
 			item: [{ title: item.title }, { link: item.link }],
 		});
 	});
@@ -71,12 +78,8 @@ function createRSS(items: Array<UserInput>): string {
 	return xmlString;
 }
 
-export function updateItems(
-	userInput: UserInput,
-	RSSinput: Array<UserInput>
-): string {
+export function updateItems(userInput: UserInput, RSSinput: Array<UserInput>) {
 	let foundItem = false;
-	let foundLink = false;
 	for (const item of RSSinput) {
 		if (item.title === userInput.title) {
 			item.link = userInput.link;
