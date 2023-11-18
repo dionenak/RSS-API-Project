@@ -1,12 +1,20 @@
 import config from "config";
 import xml from "xml";
-import * as fs from "fs";
 
-export type UserInput = { title: string; link: string };
-type dataType = { ["items"]: Array<UserInput> };
+export interface UserInput {
+	title: string;
+	link: string;
+	description: string;
+}
+type DataType = { ["items"]: Array<UserInput & { date: number }> };
 type Flatten<T> = T extends any[] ? T[number] : {};
 type FeedType = Array<{
-	item: [{ title: string }, { link: string }];
+	item: [
+		{ title: string },
+		{ link: string },
+		{ description: string },
+		{ lastBuildDate: any }
+	];
 }>;
 
 type XmlObjectType = {
@@ -24,7 +32,7 @@ type XmlObjectType = {
 	];
 };
 
-const data: dataType = {
+const data: DataType = {
 	items: [],
 };
 
@@ -63,12 +71,17 @@ function instantiateRSS() {
 	return initialXmlObject;
 }
 
-function createRSS(items: Array<UserInput>): string {
+export function createRSS(items: DataType["items"]): string {
 	let xmlObject = instantiateRSS();
 
-	data.items.forEach((item: UserInput) => {
+	items.forEach((item) => {
 		xmlObject.rss[1].channel.push({
-			item: [{ title: item.title }, { link: item.link }],
+			item: [
+				{ title: item.title },
+				{ link: item.link },
+				{ description: item.description },
+				{ lastBuildDate: new Date(item.date).toDateString() },
+			],
 		});
 	});
 
@@ -78,20 +91,20 @@ function createRSS(items: Array<UserInput>): string {
 	return xmlString;
 }
 
-export function updateItems(userInput: UserInput, RSSinput: Array<UserInput>) {
+export function updateItems(userInput: UserInput, RSSinput: DataType["items"]) {
 	let foundItem = false;
-	for (const item of RSSinput) {
+	const inputToBePassed = { ...userInput, date: Date.now() };
+	for (let item of RSSinput) {
 		if (item.title === userInput.title) {
-			item.link = userInput.link;
+			item = inputToBePassed;
 			foundItem = true;
 			break;
 		}
 	}
 	if (!foundItem) {
-		RSSinput.push({ title: userInput.title, link: userInput.link });
+		RSSinput.unshift(inputToBePassed);
 	}
 	const RSS = createRSS(RSSinput);
-	fs.writeFileSync("data/output/feed.xml", RSS);
 	return RSS;
 }
 
