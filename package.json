@@ -1,8 +1,8 @@
 {
-  "name": "RSS project",
+  "name": "RSS-API-Project",
   "version": "1.0.0",
   "main": "./lib/index.js",
-  "repository": "https://github.com/dionenak/api-project.git",
+  "repository": "https://github.com/dionenak/RSS-API-Project",
   "author": "dionenak <dionenak@outlook.com>",
   "license": "MIT",
   "scripts": {
