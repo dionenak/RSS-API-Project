@@ -6,7 +6,7 @@ export interface UserInput {
 	link: string;
 	description: string;
 }
-type RSSinputType = { ["items"]: Array<UserInput & { date: number }> };
+export type RSSinputType = { ["items"]: Array<UserInput & { date: number }> };
 type Flatten<T> = T extends any[] ? T[number] : {};
 type FeedType = Array<{
 	item: [
@@ -70,11 +70,13 @@ function instantiateRSS() {
 
 	return initialXmlObject;
 }
-
-export function createRSS(items: RSSinputType["items"]): string {
+/**
+ * Creating RSS feed as XML string.
+ */
+export function createRSS(RSSinput: RSSinputType["items"]): string {
 	let xmlObject = instantiateRSS();
 
-	items.forEach((item) => {
+	RSSinput.forEach((item) => {
 		xmlObject.rss[1].channel.push({
 			item: [
 				{ title: item.title },
@@ -87,10 +89,12 @@ export function createRSS(items: RSSinputType["items"]): string {
 
 	const xmlString =
 		'<?xml version="1.0" encoding="UTF-8"?>' + xml(xmlObject, { indent: "  " });
-
+	console.log(xmlString);
 	return xmlString;
 }
-
+/**
+ * Adding items to XML.
+ */
 export function updateItems(
 	userInput: UserInput,
 	RSSinput: RSSinputType["items"]
