@@ -6,7 +6,7 @@ export interface UserInput {
 	link: string;
 	description: string;
 }
-type DataType = { ["items"]: Array<UserInput & { date: number }> };
+type RSSinputType = { ["items"]: Array<UserInput & { date: number }> };
 type Flatten<T> = T extends any[] ? T[number] : {};
 type FeedType = Array<{
 	item: [
@@ -32,7 +32,7 @@ type XmlObjectType = {
 	];
 };
 
-const data: DataType = {
+const data: RSSinputType = {
 	items: [],
 };
 
@@ -71,7 +71,7 @@ function instantiateRSS() {
 	return initialXmlObject;
 }
 
-export function createRSS(items: DataType["items"]): string {
+export function createRSS(items: RSSinputType["items"]): string {
 	let xmlObject = instantiateRSS();
 
 	items.forEach((item) => {
@@ -91,7 +91,10 @@ export function createRSS(items: DataType["items"]): string {
 	return xmlString;
 }
 
-export function updateItems(userInput: UserInput, RSSinput: DataType["items"]) {
+export function updateItems(
+	userInput: UserInput,
+	RSSinput: RSSinputType["items"]
+) {
 	let foundItem = false;
 	const inputToBePassed = { ...userInput, date: Date.now() };
 	for (let item of RSSinput) {

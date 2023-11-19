@@ -1,5 +1,5 @@
 {
-  "name": "API-project",
+  "name": "RSS project",
   "version": "1.0.0",
   "main": "./lib/index.js",
   "repository": "https://github.com/dionenak/api-project.git",
@@ -7,6 +7,7 @@
   "license": "MIT",
   "scripts": {
     "build": "tsc",
+    "watch":"tsc -w",
     "server": "ts-node-dev --respawn --transpile-only src/index.ts"
   },
   "devDependencies": {

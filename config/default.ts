@@ -1,7 +1,7 @@
 export default {
 	port: 8080,
 	project: {
-		title: "API-PROJECT",
+		title: "RSS-PROJECT",
 		link: "a link",
 		description: "a description",
 		lang: "en-us",
