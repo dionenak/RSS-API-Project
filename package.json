@@ -1,41 +1,47 @@
 {
-  "name": "RSS-API-Project",
-  "version": "1.0.0",
-  "main": "./lib/index.js",
-  "repository": "https://github.com/dionenak/RSS-API-Project",
-  "author": "dionenak <dionenak@outlook.com>",
-  "license": "MIT",
-  "scripts": {
-    "build": "tsc",
-    "watch": "tsc -w",
-    "server": "ts-node-dev --respawn --transpile-only src/index.ts",
-    "test": "jest"
-  },
-  "devDependencies": {
-    "@types/lodash": "^4.14.195",
-    "@typescript-eslint/eslint-plugin": "^5.54.0",
-    "@typescript-eslint/parser": "^5.59.6",
-    "eslint": "^8.35.0",
-    "eslint-config-standard-with-typescript": "^34.0.0",
-    "eslint-plugin-import": "^2.27.5",
-    "eslint-plugin-n": "^15.6.1",
-    "eslint-plugin-promise": "^6.1.1",
-    "prettier": "^2.6.2",
-    "ts-node-dev": "^2.0.0",
-    "typescript": "^5.1.6",
-    "vue-eslint-parser": "^8.0.0"
-  },
-  "dependencies": {
-    "@types/config": "^3.3.0",
-    "@types/express": "^4.17.17",
-    "@types/jest": "^29.5.8",
-    "@types/xml": "^1.0.8",
-    "body-parser": "^1.20.2",
-    "config": "^3.3.9",
-    "express": "^4.18.2",
-    "fs": "^0.0.1-security",
-    "jest": "^29.7.0",
-    "ts-jest": "^29.1.1",
-    "xml": "^1.0.1"
-  }
+	"name": "RSS-API-Project",
+	"version": "1.0.0",
+	"main": "./lib/index.js",
+	"repository": "https://github.com/dionenak/RSS-API-Project",
+	"author": "dionenak <dionenak@outlook.com>",
+	"license": "MIT",
+	"scripts": {
+		"build": "tsc",
+		"watch": "tsc -w",
+		"server": "ts-node-dev --respawn --transpile-only src/index.ts",
+		"test": "jest"
+	},
+	"keywords": [
+		"prettier"
+	],
+	"devDependencies": {
+		"@types/lodash": "^4.14.195",
+		"@typescript-eslint/eslint-plugin": "^5.54.0",
+		"@typescript-eslint/parser": "^5.59.6",
+		"eslint": "^8.35.0",
+		"eslint-config-standard-with-typescript": "^34.0.0",
+		"eslint-plugin-import": "^2.27.5",
+		"eslint-plugin-n": "^15.6.1",
+		"eslint-plugin-promise": "^6.1.1",
+		"prettier": "^2.6.2",
+		"ts-node-dev": "^2.0.0",
+		"typescript": "^5.1.6",
+		"vue-eslint-parser": "^8.0.0"
+	},
+	"dependencies": {
+		"@types/config": "^3.3.0",
+		"@types/express": "^4.17.17",
+		"@types/jest": "^29.5.8",
+		"@types/xml": "^1.0.8",
+		"body-parser": "^1.20.2",
+		"config": "^3.3.9",
+		"express": "^4.18.2",
+		"fs": "^0.0.1-security",
+		"jest": "^29.7.0",
+		"ts-jest": "^29.1.1",
+		"xml": "^1.0.1"
+	},
+	"prettier": {
+		"singleQuote": true
+	}
 }

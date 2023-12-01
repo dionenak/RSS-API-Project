@@ -1,4 +1,4 @@
 node_modules
 NOTES.md
-.vscode
-data/output
+data
+lib
