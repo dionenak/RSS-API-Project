@@ -36,4 +36,10 @@ Then, in order to run the server, you have to use:
 yarn server
 ```
 
-The website can be found in: [http://localhost:8080/](http://localhost:8080/) .
+The API runs on: [http://localhost:8080/](http://localhost:8080/) .
+
+### <u>Work with data</u>
+
+For updating your RSS, you have to do a post request with content type header `application/json` and as data a JSON with the string properties `title`, `link` and `description`.
+
+You get back the RSS everytime you update but also with a simple get request.
