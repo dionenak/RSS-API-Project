@@ -41,9 +41,7 @@ describe('CreateRSS', () => {
     expect(mockXML).toBe(xmlExpected);
   });
 });
-describe('updateItems', () => {
-  //TODO
-  // test('[3] should result in "fizz"', () => {
-  // 	expect(fizz_buzz([3])).toBe("fizz");
-  // });
-});
+//  TODO
+// describe('updateItems', () => {
+
+// })

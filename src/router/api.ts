@@ -1,14 +1,21 @@
-import express from 'express';
+import express, { Response } from 'express';
 import data, {
   UserInput,
   createRSS,
   updateItems,
 } from '../controller/routeController';
 
+function sendServerError(res: Response) {
+  return res.status(500).send({
+    message: 'Something went wrong with the server.',
+  });
+}
+
 const router = express.Router();
 
 router.get('/api', (req, res) => {
   const RSS = createRSS(data.items);
+  if (!RSS) return sendServerError(res);
   res.type('.rss').send(RSS);
 });
 
@@ -28,8 +35,14 @@ router.post('/api', (req, res) => {
             'Wrong input. Please insert a valid link, title and description.',
         })
     );
-
-  const RSS = updateItems(userInput, data.items);
+  let RSS: string;
+  RSS = '';
+  try {
+    RSS = updateItems(userInput, data.items);
+  } catch (e) {
+    return sendServerError(res);
+  }
+  if (!RSS) return sendServerError(res);
   res.type('.rss').send(RSS);
 });
 

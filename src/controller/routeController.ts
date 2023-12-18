@@ -7,15 +7,16 @@ export interface UserInput {
   description: string;
 }
 export type RSSinputType = { ['items']: Array<UserInput & { date: number }> };
-type Flatten<T> = T extends any[] ? T[number] : {};
+
 type FeedType = Array<{
   item: [
     { title: string },
     { link: string },
     { description: string },
-    { lastBuildDate: any }
+    { lastBuildDate: string }
   ];
 }>;
+type Flatten<T> = T extends any[] ? T[number] : {};
 
 type XmlObjectType = {
   rss: [
@@ -43,12 +44,12 @@ function instantiateRSS() {
   /**
    * Info we want from config for our XML.
    */
-  const projectInfo: {
+  const projectInfo = config.get<{
     title: string;
     link: string;
     description: string;
-    lang: 'string';
-  } = config.get('project');
+    lang: string;
+  }>('project');
 
   const initialXmlObject: XmlObjectType = {
     rss: [
@@ -89,7 +90,6 @@ export function createRSS(RSSinput: RSSinputType['items']): string {
 
   const xmlString =
     '<?xml version="1.0" encoding="UTF-8"?>' + xml(xmlObject, { indent: '  ' });
-  console.log(xmlString);
   return xmlString;
 }
 /**
@@ -101,9 +101,9 @@ export function updateItems(
 ) {
   let foundItem = false;
   const inputToBePassed = { ...userInput, date: Date.now() };
-  for (let item of RSSinput) {
+  for (const [i, item] of RSSinput.entries()) {
     if (item.title === userInput.title) {
-      item = inputToBePassed;
+      RSSinput[i] = { ...inputToBePassed };
       foundItem = true;
       break;
     }
