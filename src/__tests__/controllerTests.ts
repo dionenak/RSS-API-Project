@@ -1,4 +1,9 @@
-import { RSSinputType, createRSS } from '../controller/routeController';
+import {
+  RSSinputType,
+  UserInput,
+  createRSS,
+  updateItems,
+} from '../controller/routeController';
 const mockData: RSSinputType['items'] = [
   {
     title: 'onetitle',
@@ -23,16 +28,16 @@ describe('CreateRSS', () => {
     '<description>Creating and managing your online content using RSS Feed.</description>\n    ' +
     '<language>en-us</language>\n    ' +
     '<item>\n      ' +
-    '<title>onetitle</title>\n      ' +
-    '<link>http:one-title</link>\n      ' +
-    '<description>onedescription</description>\n      ' +
-    '<lastBuildDate>Thu Jan 01 1970</lastBuildDate>\n    ' +
-    '</item>\n    ' +
-    '<item>\n      ' +
     '<title>secondtitle</title>\n      ' +
     '<link>http:second-title</link>\n      ' +
     '<description>seconddescription</description>\n      ' +
     '<lastBuildDate>Fri Jan 02 1970</lastBuildDate>\n    ' +
+    '</item>\n    ' +
+    '<item>\n      ' +
+    '<title>onetitle</title>\n      ' +
+    '<link>http:one-title</link>\n      ' +
+    '<description>onedescription</description>\n      ' +
+    '<lastBuildDate>Thu Jan 01 1970</lastBuildDate>\n    ' +
     '</item>\n  ' +
     '</channel>\n' +
     '</rss>';
@@ -41,7 +46,16 @@ describe('CreateRSS', () => {
     expect(mockXML).toBe(xmlExpected);
   });
 });
-//  TODO
-// describe('updateItems', () => {
 
-// })
+describe('updateItems', () => {
+  const additionalData = {
+    title: 'additionalTitle',
+    link: 'http:additionalData-title',
+    description: 'additionalDescription',
+  };
+  const mockOutputData = updateItems(additionalData, mockData);
+  test('with one item', () => {
+    expect(mockData).toBeDefined();
+    expect(mockData.length).toBe(3);
+  });
+});

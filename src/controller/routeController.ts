@@ -1,11 +1,11 @@
 import config from 'config';
 import xml from 'xml';
 
-export interface UserInput {
+export type UserInput = {
   title: string;
   link: string;
   description: string;
-}
+};
 export type RSSinputType = { ['items']: Array<UserInput & { date: number }> };
 
 type FeedType = Array<{
@@ -75,9 +75,13 @@ function instantiateRSS() {
  * Creating RSS feed as XML string.
  */
 export function createRSS(RSSinput: RSSinputType['items']): string {
-  let xmlObject = instantiateRSS();
-
-  RSSinput.forEach((item) => {
+  const xmlObject = instantiateRSS();
+  // RSS feeds are normally sorted reverse chronologically
+  // (most recent episode first, oldest episode last)
+  // by published date
+  //
+  for (let i = RSSinput.length - 1; i >= 0; i--) {
+    const item = RSSinput[i];
     xmlObject.rss[1].channel.push({
       item: [
         { title: item.title },
@@ -86,10 +90,11 @@ export function createRSS(RSSinput: RSSinputType['items']): string {
         { lastBuildDate: new Date(item.date).toDateString() },
       ],
     });
-  });
+  }
 
   const xmlString =
     '<?xml version="1.0" encoding="UTF-8"?>' + xml(xmlObject, { indent: '  ' });
+
   return xmlString;
 }
 /**
@@ -109,9 +114,10 @@ export function updateItems(
     }
   }
   if (!foundItem) {
-    RSSinput.unshift(inputToBePassed);
+    RSSinput.push(inputToBePassed);
   }
   const RSS = createRSS(RSSinput);
+  if (!RSS) throw new Error('Something went wrong during RSS creation.');
   return RSS;
 }
 
